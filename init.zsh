@@ -2,6 +2,15 @@
 # Utility Functions and Options
 #
 
+# Set less or more as the default pager.
+if (( ! ${+PAGER} )); then
+  if (( ${+commands[less]} )); then
+    export PAGER=less
+  else
+    export PAGER=more
+  fi
+fi
+
 #
 # Colours
 #

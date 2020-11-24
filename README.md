@@ -5,6 +5,9 @@ Utility aliases and functions.
 
 Adds colour to `ls`, `grep` and `less`.
 
+If file `${HOME}/.dir_colors` exists, then its configuration will be set using
+`dircolors` (GNU only).
+
 Aliases
 -------
 

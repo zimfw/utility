@@ -32,6 +32,11 @@ Aliases
   * `df` reports file system disk usage with human-readable sizes.
   * `du` reports file disk usage with human-readable sizes.
 
+### shasum
+
+If `sha{1,224,256,384,512}sum` are not available, then create respective aliases
+using `shasum` or `openssl`.
+
 ### Condoms
 
   * `chmod` changes file mode verbosely, not operating from `/` (GNU only).

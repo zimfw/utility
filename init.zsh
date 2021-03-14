@@ -50,6 +50,22 @@ alias du='du -h'
 
 
 #
+# Shasum
+#
+
+for a in 1 224 256 384 512; do
+  if ! whence sha${a}sum >/dev/null; then
+    if (( ${+commands[shasum]} )); then
+      alias sha${a}sum="shasum -a${a}"
+    elif (( ${+commands[openssl]} )); then
+      alias sha${a}sum="openssl sha${a}"
+    fi
+  fi
+done
+unset a
+
+
+#
 # Colours
 #
 

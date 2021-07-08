@@ -25,17 +25,12 @@ Aliases
 
 ### File downloads
 
-  * `get` is short for ( `aria2c` || `axel` || `wget` || `curl` ).
+  * `get` is short for `aria2c` || `axel` || `wget` || `curl`.
 
 ### Resource usage
 
   * `df` reports file system disk usage with human-readable sizes.
   * `du` reports file disk usage with human-readable sizes.
-
-### shasum
-
-If `sha{1,224,256,384,512}sum` are not available, then create respective aliases
-using `shasum` or `openssl`.
 
 ### Condoms
 

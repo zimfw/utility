@@ -25,7 +25,7 @@ Aliases
 
 ### File downloads
 
-  * `get` is short for `aria2c` || `axel` || `wget` || `curl`.
+  * `get` downloads from the given URL using `aria2c`, `axel`, `wget` or `curl`.
 
 ### Resource usage
 
@@ -38,7 +38,8 @@ Aliases
   * `chown` changes file owner verbosely, not operating from `/` (GNU only).
   * `rm` uses `safe-rm` if available.
 
-### Misc
+Functions
+---------
 
   * `mkcd` creates and changes to the given directory.
   * `mkpw` generates a random password with the given length and set of characters.

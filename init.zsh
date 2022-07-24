@@ -57,7 +57,7 @@ if (( terminfo[colors] >= 8 )); then
   # grep colours
   if (( ! ${+GREP_COLOR} )) export GREP_COLOR='37;45'               #BSD
   if (( ! ${+GREP_COLORS} )) export GREP_COLORS="mt=${GREP_COLOR}"  #GNU
-  if [[ ${OSTYPE} == openbsd* || ${OSTYPE} == darwin* ]]; then
+  if [[ ${OSTYPE} == openbsd* ]]; then
     if (( ${+commands[ggrep]} )) alias grep='ggrep --color=auto'
   else
     alias grep='grep --color=auto'
@@ -108,10 +108,10 @@ else
   if (( ! ${+NO_COLOR} )); then
     # ls colours
     if (( ! ${+CLICOLOR} )) export CLICOLOR=1
-    if (( ! ${+LSCOLORS} )) export LSCOLORS='ExfxcxdxbxGxDxabagacad'
+    if (( ! ${+LSCOLORS} )) export LSCOLORS=ExfxcxdxbxGxDxabagacad
     # Stock OpenBSD ls does not support colors at all, but colorls does.
     if [[ ${OSTYPE} == openbsd* && ${+commands[colorls]} -ne 0 ]]; then
-      alias ls='colorls'
+      alias ls=colorls
     fi
   fi
 fi
@@ -120,5 +120,5 @@ fi
 # not aliasing rm -i, but if safe-rm is available, use condom.
 # if safe-rmdir is available, the OS is suse which has its own terrible 'safe-rm' which is not what we want
 if (( ${+commands[safe-rm]} && ! ${+commands[safe-rmdir]} )); then
-  alias rm='safe-rm'
+  alias rm=safe-rm
 fi

@@ -13,19 +13,6 @@ fi
 
 
 #
-# ls Aliases
-#
-
-alias ll='ls -lh'         # long format and human-readable sizes
-alias l='ll -A'           # long format, all files
-alias lm="l | ${PAGER}"   # long format, all files, use pager
-alias lr='ll -R'          # long format, recursive
-alias lk='ll -Sr'         # long format, largest file size last
-alias lt='ll -tr'         # long format, newest modification time last
-alias lc='lt -c'          # long format, newest status change (ctime) last
-
-
-#
 # File Downloads
 #
 
@@ -68,8 +55,6 @@ if (( terminfo[colors] >= 8 )); then
     if (( ! ${+LESS_TERMCAP_mb} )) export LESS_TERMCAP_mb=$'\E[1;31m'   # Begins blinking.
     if (( ! ${+LESS_TERMCAP_md} )) export LESS_TERMCAP_md=$'\E[1;31m'   # Begins bold.
     if (( ! ${+LESS_TERMCAP_me} )) export LESS_TERMCAP_me=$'\E[0m'      # Ends mode.
-    if (( ! ${+LESS_TERMCAP_se} )) export LESS_TERMCAP_se=$'\E[27m'     # Ends standout-mode.
-    if (( ! ${+LESS_TERMCAP_so} )) export LESS_TERMCAP_so=$'\E[7m'      # Begins standout-mode.
     if (( ! ${+LESS_TERMCAP_ue} )) export LESS_TERMCAP_ue=$'\E[0m'      # Ends underline.
     if (( ! ${+LESS_TERMCAP_us} )) export LESS_TERMCAP_us=$'\E[1;32m'   # Begins underline.
   fi
@@ -88,8 +73,9 @@ if whence dircolors >/dev/null && ls --version &>/dev/null; then
 
   # ls aliases
   alias lx='ll -X' # long format, sort by extension
-
-  if (( ! ${+NO_COLOR} )); then
+  if (( ${+NO_COLOR} )); then
+    alias ls='ls --group-directories-first'
+  else
     # ls colours
     if [[ -s ${HOME}/.dir_colors ]]; then
       eval "$(dircolors --sh ${HOME}/.dir_colors)"
@@ -114,6 +100,25 @@ else
       alias ls=colorls
     fi
   fi
+fi
+
+
+#
+# ls Aliases
+#
+
+alias ll='ls -lh'         # long format and human-readable sizes
+alias l='ll -A'           # long format, all files
+alias lm="l | ${PAGER}"   # long format, all files, use pager
+alias lk='ll -Sr'         # long format, largest file size last
+alias lt='ll -tr'         # long format, newest modification time last
+if (( ${+commands[lsd]} )); then
+  alias ls=lsd
+  alias lr='ll --tree'    # long format, recursive as a tree
+  alias lx='ll -X'        # long format, sort by extension
+else
+  alias lr='ll -R'        # long format, recursive
+  alias lc='lt -c'        # long format, newest status change (ctime) last, not supported by lsd
 fi
 
 

@@ -11,6 +11,9 @@ if (( ! ${+PAGER} )); then
   fi
 fi
 
+if (( ! ${+LESS} )); then
+  export LESS='--chop-long-lines --ignore-case --jump-target=4 --LONG-PROMPT --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
+fi
 
 #
 # File Downloads
@@ -46,18 +49,16 @@ if (( terminfo[colors] >= 8 )); then
   if (( ! ${+GREP_COLORS} )) export GREP_COLORS="mt=${GREP_COLOR}"  #GNU
   if [[ ${OSTYPE} == openbsd* ]]; then
     if (( ${+commands[ggrep]} )) alias grep='ggrep --color=auto'
-  else
+  elif (( ${+commands[grep]} )); then
     alias grep='grep --color=auto'
   fi
 
   # less colours
-  if (( ${+commands[less]} )); then
-    if (( ! ${+LESS_TERMCAP_mb} )) export LESS_TERMCAP_mb=$'\E[1;31m'   # Begins blinking.
-    if (( ! ${+LESS_TERMCAP_md} )) export LESS_TERMCAP_md=$'\E[1;31m'   # Begins bold.
-    if (( ! ${+LESS_TERMCAP_me} )) export LESS_TERMCAP_me=$'\E[0m'      # Ends mode.
-    if (( ! ${+LESS_TERMCAP_ue} )) export LESS_TERMCAP_ue=$'\E[0m'      # Ends underline.
-    if (( ! ${+LESS_TERMCAP_us} )) export LESS_TERMCAP_us=$'\E[1;32m'   # Begins underline.
-  fi
+  if (( ! ${+LESS_TERMCAP_mb} )) export LESS_TERMCAP_mb=$'\E[1;31m'  # Begins blinking.
+  if (( ! ${+LESS_TERMCAP_md} )) export LESS_TERMCAP_md=$'\E[1;31m'  # Begins bold.
+  if (( ! ${+LESS_TERMCAP_me} )) export LESS_TERMCAP_me=$'\E[0m'     # Ends mode.
+  if (( ! ${+LESS_TERMCAP_ue} )) export LESS_TERMCAP_ue=$'\E[0m'     # Ends underline.
+  if (( ! ${+LESS_TERMCAP_us} )) export LESS_TERMCAP_us=$'\E[1;32m'  # Begins underline.
 else
   # See https://no-color.org
   export NO_COLOR=1
@@ -65,7 +66,7 @@ fi
 
 
 #
-# GNU vs. BSD
+# ls GNU vs. BSD
 #
 
 if whence dircolors >/dev/null && ls --version &>/dev/null; then
@@ -93,7 +94,7 @@ else
 
   if (( ! ${+NO_COLOR} )); then
     # ls colours
-    if (( ! ${+CLICOLOR} )) export CLICOLOR=1
+    export CLICOLOR=1
     if (( ! ${+LSCOLORS} )) export LSCOLORS=ExfxcxdxbxGxDxabagacad
     # Stock OpenBSD ls does not support colors at all, but colorls does.
     if [[ ${OSTYPE} == openbsd* && ${+commands[colorls]} -ne 0 ]]; then

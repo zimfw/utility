@@ -12,7 +12,7 @@ if (( ! ${+PAGER} )); then
 fi
 
 if (( ! ${+LESS} )); then
-  export LESS='--chop-long-lines --ignore-case --jump-target=4 --LONG-PROMPT --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
+  export LESS='--ignore-case --jump-target=4 --LONG-PROMPT --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
 fi
 
 #

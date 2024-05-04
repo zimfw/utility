@@ -47,9 +47,7 @@ if (( terminfo[colors] >= 8 )); then
   # grep colours
   if (( ! ${+GREP_COLOR} )) export GREP_COLOR='37;45'               #BSD
   if (( ! ${+GREP_COLORS} )) export GREP_COLORS="mt=${GREP_COLOR}"  #GNU
-  if [[ ${OSTYPE} == openbsd* ]]; then
-    if (( ${+commands[ggrep]} )) alias grep='ggrep --color=auto'
-  elif [[ ${OSTYPE} == solaris* ]]; then
+  if [[ ${OSTYPE} == (openbsd|solaris)* ]]; then
     if (( ${+commands[ggrep]} )) alias grep='ggrep --color=auto'
   elif (( ${+commands[grep]} )); then
     alias grep='grep --color=auto'

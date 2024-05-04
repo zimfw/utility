@@ -50,7 +50,7 @@ if (( terminfo[colors] >= 8 )); then
   if [[ ${OSTYPE} == openbsd* ]]; then
     if (( ${+commands[ggrep]} )) alias grep='ggrep --color=auto'
   elif [[ ${OSTYPE} == solaris* ]]; then
-    # Solaris grep does not support colors, do nothing
+    if (( ${+commands[ggrep]} )) alias grep='ggrep --color=auto'
   elif (( ${+commands[grep]} )); then
     alias grep='grep --color=auto'
   fi

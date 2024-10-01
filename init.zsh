@@ -43,8 +43,8 @@ alias du='du -h'
 # Colours
 #
 
-if (( terminfo[colors] >= 8 )); then
-  unset NO_COLOR
+# See https://no-color.org
+if [[ -z ${NO_COLOR} ]]; then
 
   # grep colours
   if (( ! ${+GREP_COLOR} )) export GREP_COLOR='37;45'               #BSD
@@ -61,9 +61,6 @@ if (( terminfo[colors] >= 8 )); then
   if (( ! ${+LESS_TERMCAP_me} )) export LESS_TERMCAP_me=$'\E[0m'     # Ends mode.
   if (( ! ${+LESS_TERMCAP_ue} )) export LESS_TERMCAP_ue=$'\E[0m'     # Ends underline.
   if (( ! ${+LESS_TERMCAP_us} )) export LESS_TERMCAP_us=$'\E[1;32m'  # Begins underline.
-else
-  # See https://no-color.org
-  export NO_COLOR=1
 fi
 
 
@@ -76,9 +73,7 @@ if whence dircolors >/dev/null && ls --version &>/dev/null; then
 
   # ls aliases
   alias lx='ll -X' # long format, sort by extension
-  if (( ${+NO_COLOR} )); then
-    alias ls='ls --group-directories-first'
-  else
+  if [[ -z ${NO_COLOR} ]]; then
     # ls colours
     if [[ -s ${HOME}/.dir_colors ]]; then
       eval "$(dircolors --sh ${HOME}/.dir_colors)"
@@ -86,6 +81,8 @@ if whence dircolors >/dev/null && ls --version &>/dev/null; then
       export LS_COLORS='di=1;34:ln=35:so=32:pi=33:ex=31:bd=1;36:cd=1;33:su=30;41:sg=30;46:tw=30;42:ow=30;43'
     fi
     alias ls='ls --group-directories-first --color=auto'
+  else
+    alias ls='ls --group-directories-first'
   fi
 
   # Always wear a condom
@@ -94,7 +91,7 @@ if whence dircolors >/dev/null && ls --version &>/dev/null; then
 else
   # BSD
 
-  if (( ! ${+NO_COLOR} )); then
+  if [[ -z ${NO_COLOR} ]]; then
     # ls colours
     export CLICOLOR=1
     if (( ! ${+LSCOLORS} )) export LSCOLORS=ExfxcxdxbxGxDxabagacad

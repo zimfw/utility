@@ -4,7 +4,8 @@ utility
 Utility aliases and functions.
 
 Adds colour to `ls`, `grep` and `less`. To disable colours, add the following to
-your `~/.zshrc` before initialing this module:
+the beginning of your `~/.zshrc`, before the modules are initialized with
+`source ${ZIM_HOME}/init.zsh`:
 
     export NO_COLOR=1
 

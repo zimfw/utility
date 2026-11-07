@@ -96,9 +96,7 @@ else
     export CLICOLOR=1
     if (( ! ${+LSCOLORS} )) export LSCOLORS=ExfxcxdxbxGxDxabagacad
     # Stock OpenBSD ls does not support colors at all, but colorls does.
-    if [[ ${OSTYPE} == openbsd* && ${+commands[colorls]} -ne 0 ]]; then
-      alias ls=colorls
-    fi
+    if [[ ${OSTYPE} == openbsd* && ${+commands[colorls]} -ne 0 ]] alias ls=colorls
   fi
 fi
 
@@ -124,6 +122,4 @@ fi
 
 # not aliasing rm -i, but if safe-rm is available, use condom.
 # if safe-rmdir is available, the OS is suse which has its own terrible 'safe-rm' which is not what we want
-if (( ${+commands[safe-rm]} && ! ${+commands[safe-rmdir]} )); then
-  alias rm=safe-rm
-fi
+if (( ${+commands[safe-rm]} && ! ${+commands[safe-rmdir]} )) alias rm=safe-rm
